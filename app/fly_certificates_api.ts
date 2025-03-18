@@ -103,10 +103,10 @@ export default class FlyCertificatesApi {
     let ipv6Matches = false
 
     for (const address of response.checkCertificate.check.resolvedAddresses) {
-      if (address === env.get('FLY_IPV4')) {
+      if (address === env.get('VITE_APP_IPV4')) {
         sharedIpv4Matches = true
       }
-      if (address === env.get('FLY_IPV6')) {
+      if (address === env.get('VITE_APP_IPV6')) {
         ipv6Matches = true
       }
     }

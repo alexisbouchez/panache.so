@@ -5,7 +5,7 @@ export default function Marquee() {
         {[...Array(10)].map((_, i) => (
           <div key={`text-${i}`} className="flex items-center">
             <span className="text-3xl font-bold px-8 uppercase font-serif">
-              Newsletters Are The New Cool
+              Make Newsletters Great Again
             </span>
             <span>
               <span className="text-3xl font-bold uppercase font-serif">·</span>

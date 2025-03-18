@@ -19,6 +19,10 @@ export default class PublicationsController {
     return response.redirect().toRoute('onboarding')
   }
 
+  create({ inertia }: HttpContext) {
+    return inertia.render('editor/publications/create')
+  }
+
   async show({ auth, params, response, inertia }: HttpContext) {
     const publication = await auth
       .user!.related('publications')
@@ -67,7 +71,31 @@ export default class PublicationsController {
           .minLength(2)
           .maxLength(50)
           .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)
-          .optional(),
+          .notIn([
+            'www',
+            'api',
+            'app',
+            'assets',
+            'fonts',
+            'images',
+            'static',
+            'storage',
+            'tmp',
+            'uploads',
+            'favicon',
+            'robots',
+            'sitemap',
+            'rss',
+            'atom',
+            'json',
+            'css',
+            'js',
+            'png',
+            'jpg',
+            'jpeg',
+            'gif',
+            'svg',
+          ]),
         domainType: vine.enum(['panache', 'custom']),
         customDomain: vine.string().optional(),
       })

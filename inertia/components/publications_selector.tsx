@@ -12,15 +12,15 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 
 const PublicationsSelector = () => {
   const { publications, currentPublication } = usePublications()
-  const [currentPublicationId, setCurrentPublicationId] = React.useState(
-    currentPublication?.id || ''
+  const [currentPublicationSlug, setCurrentPublicationSlug] = React.useState(
+    currentPublication?.slug || ''
   )
 
   return (
     <Select
-      value={currentPublicationId}
+      value={currentPublicationSlug}
       onValueChange={(value) => {
-        setCurrentPublicationId(value)
+        setCurrentPublicationSlug(value)
         if (value === 'create') {
           window.location.href = `/publications/create`
 
@@ -30,7 +30,7 @@ const PublicationsSelector = () => {
       }}
       onOpenChange={(open) => {
         if (!open) {
-          setCurrentPublicationId(currentPublication?.id || '')
+          setCurrentPublicationSlug(currentPublication?.slug || '')
         }
       }}
     >
@@ -40,7 +40,7 @@ const PublicationsSelector = () => {
 
       <SelectContent>
         {publications.map((publication) => (
-          <SelectItem value={publication.id} key={publication.id} className="cursor-pointer">
+          <SelectItem value={publication.slug} key={publication.slug} className="cursor-pointer">
             <div className="flex items-center space-x-2">
               <Avatar className="w-7 h-7 rounded-full">
                 <AvatarImage src={`https://avatar.vercel.sh/${publication.title}`} />

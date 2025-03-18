@@ -19,7 +19,6 @@ import {
 } from '~/components/ui/alert-dialog'
 import NewPostForm from '~/components/new_post_form'
 import { TabLink } from '~/components/ui/tabs'
-import { Tabs } from '@radix-ui/react-tabs'
 
 interface Props {
   publication: Publication
@@ -30,7 +29,7 @@ export default function PostsIndex({ publication, posts }: Props) {
   const [activeTab, setActiveTab] = useState<'published' | 'drafts'>('published')
 
   const publishedPosts = posts.filter((post) => post.published)
-  const draftPosts = posts.filter((post) => !post.published || post.isDraft)
+  const draftPosts = posts.filter((post) => !post.published)
 
   const displayPosts = activeTab === 'published' ? publishedPosts : draftPosts
 
@@ -44,7 +43,14 @@ export default function PostsIndex({ publication, posts }: Props) {
           <TabLink
             className="w-auto"
             href="#published"
-            label="Published"
+            label={
+              <>
+                Published{' '}
+                <span className="text-xs text-neutral-500 ml-1 mt-0.5">
+                  ({displayPosts.length})
+                </span>
+              </>
+            }
             isActive={activeTab === 'published'}
             onClick={(e: React.MouseEvent) => {
               e.preventDefault()
@@ -54,7 +60,12 @@ export default function PostsIndex({ publication, posts }: Props) {
           <TabLink
             className="w-auto"
             href="#drafts"
-            label="Drafts"
+            label={
+              <>
+                Drafts{' '}
+                <span className="text-xs text-neutral-500 ml-1 mt-0.5">({draftPosts.length})</span>
+              </>
+            }
             isActive={activeTab === 'drafts'}
             onClick={(e: React.MouseEvent) => {
               e.preventDefault()
@@ -84,9 +95,9 @@ export default function PostsIndex({ publication, posts }: Props) {
                         {post.title || 'Untitled'}
                       </h3>
                       <span
-                        className={`text-xs px-2 py-0.5 rounded-full ${
+                        className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                           post.published
-                            ? 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+                            ? 'bg-emerald-50 text-emerald-700 border border-emerald-500'
                             : 'bg-neutral-100 text-neutral-700 border border-neutral-200'
                         }`}
                       >

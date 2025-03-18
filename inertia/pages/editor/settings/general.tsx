@@ -18,6 +18,7 @@ import { useForm } from '@inertiajs/react'
 import Publication from '#models/publication'
 import useParams from '#inertia/hooks/use_params'
 import { SettingsLayoutNav } from '#inertia/components/settings_layout_nav'
+import { Field } from '#inertia/components/ui/field'
 
 export default function GeneralSettings({ publication }: { publication: Publication }) {
   const params = useParams()
@@ -53,7 +54,7 @@ export default function GeneralSettings({ publication }: { publication: Publicat
             </CardHeader>
             <CardContent className="!pt-0">
               <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
+                <Field>
                   <Label htmlFor="domain">Domain</Label>
                   <div className="flex items-center">
                     <div className="flex w-full">
@@ -69,16 +70,16 @@ export default function GeneralSettings({ publication }: { publication: Publicat
                     </div>
                   </div>
                   <p className="text-sm text-neutral-600">This is your publication's URL.</p>
-                </div>
+                </Field>
 
-                <div className="space-y-2">
+                <Field>
                   <Label htmlFor="title">Publication Title</Label>
                   <Input
                     id="title"
                     value={form.data.title}
                     onChange={(e) => form.setData('title', e.target.value)}
                   />
-                </div>
+                </Field>
 
                 <div className="flex justify-between items-center">
                   <Button type="submit" disabled={form.processing}>

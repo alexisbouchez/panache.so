@@ -54,7 +54,10 @@ export default await Env.create(new URL('../', import.meta.url), {
 
   APP_URL: Env.schema.string(),
 
+  /**
+   * Variables for configuring the fly service (for custom domain management).
+   */
   FLY_TOKEN: Env.schema.string(),
-  FLY_IPV4: Env.schema.string(),
-  FLY_IPV6: Env.schema.string(),
+  VITE_APP_IPV4: Env.schema.string(),
+  VITE_APP_IPV6: Env.schema.string(),
 })

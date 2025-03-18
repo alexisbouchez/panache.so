@@ -5,7 +5,7 @@ import { IconDiscord } from './icons'
 
 export default function Hero() {
   return (
-    <section className="relative mx-auto w-full max-w-screen-lg overflow-hidden rounded-lg bg-neutral-50 p-6 text-center sm:p-12 sm:px-0">
+    <section className="relative mx-auto w-full max-w-screen-lg overflow-hidden rounded-lg bg-neutral-50 p-6 text-center sm:p-20 sm:px-0">
       <svg
         className="pointer-events-none absolute inset-[unset] left-1/2 top-0 w-[1200px] -translate-x-1/2 text-neutral-300 [mask-image:linear-gradient(transparent,black_70%)]"
         width="100%"
@@ -45,7 +45,7 @@ export default function Hero() {
           <span>Start for free</span>
           <IconArrowRight className="w-4 h-4" />
         </Link>
-        <a className="btn btn-secondary" href="https://discord.gg/8kADUcuQ68">
+        <a className="btn btn-secondary" href="https://discord.gg/MnUDwwEjYU">
           <IconDiscord className="w-4 h-4" />
           <span>Join the community</span>
         </a>

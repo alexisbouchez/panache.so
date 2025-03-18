@@ -29,7 +29,7 @@ const EditorLayout: React.FunctionComponent<EditorLayoutProps> = ({
             <div className="flex items-center gap-x-2">
               <a className="hidden transition-all sm:block" href="/">
                 <div className="max-w-fit">
-                  <Logo />
+                  <Logo className="size-9" />
                 </div>
               </a>
               <svg

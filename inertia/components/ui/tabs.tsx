@@ -59,7 +59,7 @@ export function TabLink({
 }: {
   className?: string
   href: string
-  label: string
+  label: string | React.ReactNode
   isActive: boolean
   onClick?: (e: React.MouseEvent) => void
 }) {

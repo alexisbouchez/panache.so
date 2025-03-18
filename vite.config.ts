@@ -12,6 +12,9 @@ export default defineConfig({
     react(),
     adonisjs({ entrypoints: ['inertia/app/app.tsx'], reload: ['resources/views/**/*.edge'] }),
   ],
+  server: {
+    allowedHosts: true,
+  },
 
   /**
    * Define aliases for importing modules from

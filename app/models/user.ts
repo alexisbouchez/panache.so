@@ -20,6 +20,9 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column()
   declare email: string
 
+  @column()
+  declare imageUrl: string | null
+
   @hasMany(() => Publication)
   declare publications: HasMany<typeof Publication>
 

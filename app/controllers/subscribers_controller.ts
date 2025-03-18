@@ -16,7 +16,7 @@ export default class SubcribersController {
       return response.notFound()
     }
 
-    const contacts = await publication.related('contacts').query()
+    const contacts = await publication.related('contacts').query().orderBy('created_at', 'desc')
 
     return inertia.render('editor/audience', { contacts })
   }

@@ -1,8 +1,9 @@
+import env from '#start/env'
 import router from '@adonisjs/core/services/router'
 import { BaseMail } from '@adonisjs/mail'
 
 export default class MagicLinkNotification extends BaseMail {
-  from = 'Panache <no-reply@info.panache.so>'
+  from = 'Panache <no-reply@system.panache.social>'
   subject = 'Panache - Authenticate with magic link'
 
   constructor(private to: string) {
@@ -18,7 +19,7 @@ export default class MagicLinkNotification extends BaseMail {
     this.message.htmlView('emails/magic_link', {
       link: router
         .builder()
-        .prefixUrl('https://panache.so')
+        .prefixUrl(env.get('APP_URL'))
         .params({ email: this.to })
         .makeSigned('auth.callback', {
           expiresIn: '1 hour',

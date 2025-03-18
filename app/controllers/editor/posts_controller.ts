@@ -30,6 +30,7 @@ export default class PostsController {
     const post = await publication.related('posts').create({
       title: '',
       content: '',
+      authorId: auth.user!.id,
     })
 
     return response.redirect().toRoute('editor.posts.edit', {
@@ -61,17 +62,29 @@ export default class PostsController {
       .where('customDomain', params.domain)
       .orWhere('slug', params.domain)
       .firstOrFail()
-
     const post = await publication.related('posts').query().where('id', params.postId).firstOrFail()
 
     const validator = vine.compile(
       vine.object({
         title: vine.string().trim().minLength(2).maxLength(100),
         content: vine.string().trim().minLength(10),
+        published: vine.boolean().optional(),
       })
     )
 
-    const data = await request.validateUsing(validator)
+    const data = (await request.validateUsing(validator)) as {
+      title: string
+      content: string
+      published?: boolean
+      publishedAt?: DateTime
+    }
+
+    // Handle publishedAt when published status changes
+    if (data.published !== undefined && data.published !== post.published) {
+      if (data.published && !post.publishedAt) {
+        data.publishedAt = DateTime.now()
+      }
+    }
 
     await post.merge(data).save()
 
@@ -105,12 +118,14 @@ export default class PostsController {
 
     const post = await publication.related('posts').query().where('id', params.postId).firstOrFail()
 
-    await post
-      .merge({
-        published: true,
-        publishedAt: post.publishedAt || DateTime.now(),
-      })
-      .save()
+    if (!post.published) {
+      await post
+        .merge({
+          published: true,
+          publishedAt: post.publishedAt || DateTime.now(),
+        })
+        .save()
+    }
 
     return response.redirect().back()
   }

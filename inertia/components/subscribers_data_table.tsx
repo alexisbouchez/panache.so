@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { ArrowUpDown, ChevronDown, Loader2Icon, MoreHorizontal, Trash2Icon } from 'lucide-react'
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Trash2Icon } from 'lucide-react'
 import { router, usePage } from '@inertiajs/react'
 
 import { Button } from './ui/button'
@@ -33,7 +33,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 import { Input } from './ui/input'

@@ -7,6 +7,10 @@ router
   .as('editor.publications.index')
   .use(middleware.auth())
 router
+  .get('/publications/create', [PublicationsController, 'create'])
+  .use(middleware.auth())
+  .as('editor.publications.create')
+router
   .get('/publications/:domain', [PublicationsController, 'show'])
   .use(middleware.auth())
   .as('editor.publications.show')

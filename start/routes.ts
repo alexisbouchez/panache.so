@@ -12,6 +12,7 @@ import { middleware } from './kernel.js'
 import env from './env.js'
 import './routes/auth.js'
 import './routes/editor.js'
+import './routes/publication.js'
 
 const platformRoutes = router.group(() => {
   router.on('/').renderInertia('landing')
@@ -22,13 +23,3 @@ const platformRoutes = router.group(() => {
 if (env.get('NODE_ENV') === 'production') {
   platformRoutes.domain('panache.so').domain('www.panache.so')
 }
-
-router
-  .group(() => {
-    router.get('/', ({ subdomains }) => {
-      return subdomains.slug
-    })
-  })
-  .domain(':slug.panache.so')
-  // Everything but the above
-  .domain('*')

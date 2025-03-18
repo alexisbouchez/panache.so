@@ -9,6 +9,7 @@ import { Label } from '~/components/ui/label'
 import { Textarea } from '~/components/ui/textarea'
 import { IconDeviceFloppy } from '@tabler/icons-react'
 import { Switch } from '~/components/ui/switch'
+import { Field } from '#inertia/components/ui/field'
 
 interface Props {
   publication: Publication
@@ -24,7 +25,7 @@ export default function EditPost({ publication, post }: Props) {
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
-    patch(`/publications/${publication.customDomain || publication.slug}/posts/${post.slug}`)
+    patch(`/publications/${publication.customDomain || publication.slug}/posts/${post.id}`)
   }
 
   return (
@@ -35,9 +36,9 @@ export default function EditPost({ publication, post }: Props) {
             <CardTitle>Edit Post</CardTitle>
             <CardDescription>Edit your post content and settings.</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-0">
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
+              <Field>
                 <Label htmlFor="title">Title</Label>
                 <Input
                   id="title"
@@ -46,9 +47,9 @@ export default function EditPost({ publication, post }: Props) {
                   placeholder="Enter your post title"
                 />
                 {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
-              </div>
+              </Field>
 
-              <div className="space-y-2">
+              <Field>
                 <Label htmlFor="content">Content</Label>
                 <Textarea
                   id="content"
@@ -57,8 +58,10 @@ export default function EditPost({ publication, post }: Props) {
                   placeholder="Write your post content"
                   rows={10}
                 />
+                <p className="text-sm text-neutral-500">Use Markdown to format your post.</p>
+
                 {errors.content && <p className="text-sm text-red-500">{errors.content}</p>}
-              </div>
+              </Field>
 
               <div className="flex items-center space-x-2">
                 <Switch

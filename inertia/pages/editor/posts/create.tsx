@@ -9,6 +9,7 @@ import { Label } from '~/components/ui/label'
 import { Textarea } from '~/components/ui/textarea'
 import { IconDeviceFloppy } from '@tabler/icons-react'
 import { Error } from '#inertia/components/ui/error'
+import { Field } from '#inertia/components/ui/field'
 
 interface Props {
   publication: Publication
@@ -33,9 +34,9 @@ export default function CreatePost({ publication }: Props) {
             <CardTitle>New Post</CardTitle>
             <CardDescription>Create a new post for your publication.</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-0">
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
+              <Field>
                 <Label htmlFor="title">Title</Label>
                 <Input
                   id="title"
@@ -44,9 +45,9 @@ export default function CreatePost({ publication }: Props) {
                   placeholder="Enter your post title"
                 />
                 <Error errorKey="title" />
-              </div>
+              </Field>
 
-              <div className="space-y-2">
+              <Field>
                 <Label htmlFor="content">Content</Label>
                 <Textarea
                   id="content"
@@ -55,8 +56,9 @@ export default function CreatePost({ publication }: Props) {
                   placeholder="Write your post content"
                   rows={10}
                 />
+                <p className="text-sm text-neutral-500">Use Markdown to format your post.</p>
                 <Error errorKey="content" />
-              </div>
+              </Field>
 
               <div className="flex justify-end">
                 <Button type="submit" disabled={processing} loading={processing}>

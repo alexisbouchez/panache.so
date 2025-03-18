@@ -59,17 +59,25 @@ export default function DomainSettings({ publication }: { publication: Publicati
 
                 <div className="space-y-4">
                   <h3 className="text-base font-medium">DNS Configuration</h3>
-                  <DnsRecordRow recordType="A" recordName="@" recordValue="213.188.215.116" />
+                  <DnsRecordRow
+                    recordType="A"
+                    recordName="@"
+                    recordValue={import.meta.env.VITE_APP_IPV4}
+                  />
                   <DnsRecordRow
                     recordType="AAAA"
                     recordName="@"
-                    recordValue="2a09:8280:1::66:8978:0"
+                    recordValue={import.meta.env.VITE_APP_IPV6}
                   />
-                  <DnsRecordRow recordType="A" recordName="www" recordValue="213.188.215.116" />
+                  <DnsRecordRow
+                    recordType="A"
+                    recordName="www"
+                    recordValue={import.meta.env.VITE_APP_IPV4}
+                  />
                   <DnsRecordRow
                     recordType="AAAA"
                     recordName="www"
-                    recordValue="2a09:8280:1::66:8978:0"
+                    recordValue={import.meta.env.VITE_APP_IPV6}
                   />
                 </div>
               </div>
