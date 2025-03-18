@@ -55,8 +55,8 @@ export default class PublicationsController {
 
     return inertia.render('editor/show', {
       publication,
-      numberOfPosts: parseInt(postsCount),
-      numberOfContacts: parseInt(contactsCount),
+      numberOfPosts: Number.parseInt(postsCount),
+      numberOfContacts: Number.parseInt(contactsCount),
     })
   }
 
@@ -102,14 +102,14 @@ export default class PublicationsController {
     )
 
     // Validate request body
-    const data = await request.validateUsing(validator)
+    const payload = await request.validateUsing(validator)
 
     // Create publication
     const publication = await auth.user!.related('publications').create({
-      title: data.title,
-      slug: data.slug,
-      domainType: data.domainType,
-      customDomain: data.customDomain,
+      title: payload.title,
+      slug: payload.slug,
+      domainType: payload.domainType,
+      customDomain: payload.customDomain,
     })
 
     /**
@@ -147,7 +147,7 @@ export default class PublicationsController {
       })
     }
 
-    if (data.domainType === 'custom') {
+    if (payload.domainType === 'custom') {
       /**
        * Create Stripe session, and redirect to domain settings
        */
@@ -159,7 +159,7 @@ export default class PublicationsController {
         metadata: {
           publicationId: publication.id,
         },
-        success_url: `${env.get('APP_URL')}/publications/${data.customDomain || publication.slug}/settings/domain`,
+        success_url: `${env.get('APP_URL')}/publications/${publication.slug}/settings/domain`,
       })
 
       return inertia.location(session.url!)
@@ -169,7 +169,7 @@ export default class PublicationsController {
      * Redirect to publication directly, if domain type is not custom.
      */
     return response.redirect().toRoute('editor.publications.index', {
-      domain: data.customDomain || publication.slug,
+      domain: publication.slug,
     })
   }
 
