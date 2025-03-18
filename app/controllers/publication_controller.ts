@@ -23,13 +23,16 @@ export default class PublicationController {
     })
 
     if (request.wantsJSON()) {
-      return response.json(publication.posts.map((post) => post.serialize()))
+      return response.json({
+        posts: publication.posts.map((post) => post.serialize()),
+        publication: publication.serialize(),
+      })
     }
 
     return inertia.render('posts/index', { publication, posts: publication.posts })
   }
 
-  async showPost({ subdomains, params, response, inertia }: HttpContext) {
+  async showPost({ subdomains, params, request, response, inertia }: HttpContext) {
     const publication = await Publication.findByOrFail('slug', subdomains.slug)
     if (publication === null) {
       return response.notFound('Publication not found.')
@@ -38,6 +41,13 @@ export default class PublicationController {
     const post = await Post.findByOrFail('id', params.id)
     if (post === null) {
       return response.notFound('Post not found.')
+    }
+
+    if (request.wantsJSON()) {
+      return response.json({
+        post: post.serialize(),
+        publication: publication.serialize(),
+      })
     }
 
     return inertia.render('posts/show', { publication, post })
@@ -58,6 +68,12 @@ export default class PublicationController {
     const { email } = await request.validateUsing(validator)
 
     if (publication.resendAudienceId === null) {
+      if (request.wantsJSON()) {
+        return response.json({
+          message: 'You are subscribed to this publication.',
+        })
+      }
+
       return response.redirect().back()
     }
 
@@ -80,6 +96,12 @@ export default class PublicationController {
       resendId: resendContactResponse.data?.id,
       publicationId: publication.id,
     })
+
+    if (request.wantsJSON()) {
+      return response.json({
+        message: 'You are subscribed to this publication.',
+      })
+    }
 
     return response.redirect().back()
   }
